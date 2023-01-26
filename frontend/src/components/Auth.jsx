@@ -3,6 +3,7 @@ import {Formik, Form} from "formik";
 import YupPassword from "yup-password";
 import Input from "../ui/Input";
 import * as Yup from "yup";
+import axios from "axios";
 
 YupPassword(Yup);
 
@@ -37,7 +38,15 @@ const AuthPage = () => {
               initialValues={initialFormValues}
               validationSchema={validationSchema}
               onSubmit={(values) => {
-                console.log(values);
+                // todo - перенести асинковую логику в редакс
+                axios
+                  .post("/api/v1/login", {
+                    username: values.userName,
+                    password: values.password,
+                  })
+                  .then((response) => {
+                    console.log(response.data); // => { token: ..., username: 'admin' }
+                  });
               }}
             >
               <Form>
