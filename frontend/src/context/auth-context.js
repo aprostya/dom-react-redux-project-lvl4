@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext(({
-    isLoggedIn: false,
+    isLoggedIn: true,
     onLogout: () => { },
-    onLogin: (email, password) => { }
+    onLogin: () => { }
 }))
 
 export const AuthContextProvider = props => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(true);
+    const navigate = useNavigate()
 
     useEffect(() => {
         const storedUserLoggedInInformation = localStorage.getItem('isLoggedIn');
@@ -15,7 +17,7 @@ export const AuthContextProvider = props => {
         if (storedUserLoggedInInformation === '1') {
             setIsLoggedIn(true);
         }
-    }, []);
+    }, [isLoggedIn]);
 
     const logoutHandler = () => {
         localStorage.removeItem('isLoggedIn');
@@ -23,8 +25,10 @@ export const AuthContextProvider = props => {
     };
 
     const loginHandler = () => {
+        alert('login')
         localStorage.setItem('isLoggedIn', '1');
         setIsLoggedIn(true);
+        navigate('/home')
     }
 
     return (
@@ -33,3 +37,5 @@ export const AuthContextProvider = props => {
         </AuthContext.Provider>
     )
 }
+
+export default AuthContext;

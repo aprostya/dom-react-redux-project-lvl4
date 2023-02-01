@@ -1,23 +1,33 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Formik, Form} from "formik";
+import AuthContext from "../../../../context/auth-context";
 import {FormContainer} from "./FormContainer";
 import validationSchema from "../../helpers/validateForm";
 import Login from "../Login/Login";
+import Registration from "../Registration/Registration";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
+//ToDo из пропсов
 const getPageState = (pageState) => {
   if (pageState === "login") {
     return <Login />;
   }
-  return <div></div>;
+  return <Registration />;
 };
 
-const AuthPage = () => {
-  const [currPageState, setCurrPageState] = React.useState("login");
+const AuthPage = (props) => {
+  const [currPageState, setCurrPageState] = React.useState(props.pageState);
+  const authCtx = useContext(AuthContext);
+  console.log(authCtx.isLoggedIn, "isLoggedIn");
 
   const initialFormValues = {
     userName: "",
     password: "",
+  };
+
+  const submitHandler = (values) => {
+    authCtx.onLogin(values.userName, values.password);
   };
 
   return (
@@ -25,17 +35,16 @@ const AuthPage = () => {
       <Formik
         initialValues={initialFormValues}
         validationSchema={validationSchema}
-        onSubmit={(values) => {
-          // todo - перенести асинковую логику в редакс
-          axios
-            .post("/api/v1/login", {
-              username: values.userName,
-              password: values.password,
-            })
-            .then((response) => {
-              console.log(response.data); // => { token: ..., username: 'admin' }
-            });
-        }}
+        onSubmit={(values) => submitHandler(values)}
+        // todo - перенести асинковую логику в редакс
+        // axios
+        //   .post("/api/v1/login", {
+        //     username: values.userName,
+        //     password: values.password,
+        //   })
+        //   .then((response) => {
+        //     console.log(response.data); // => { token: ..., username: 'admin' }
+        //   });
       >
         <Form>
           {getPageState(currPageState)}

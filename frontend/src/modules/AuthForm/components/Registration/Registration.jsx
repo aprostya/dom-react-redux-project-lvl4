@@ -1,7 +1,7 @@
 import React from "react";
 
 const Registration = () => {
-  return <div> Registration state</div>;
+  return <div>registation</div>;
 };
 
 export default Registration;
