@@ -1,6 +1,7 @@
-import {Link, Route, Routes} from "react-router-dom";
-import AuthPage from "./components/Auth";
+import {Route, Routes} from "react-router-dom";
+import AuthPage from "./modules/AuthForm/components/Form/Form";
 import ErrorPage from "./components/Error";
+import AuthContext from "./context/auth-context";
 
 const App = () => {
   return (
