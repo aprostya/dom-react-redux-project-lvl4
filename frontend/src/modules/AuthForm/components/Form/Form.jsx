@@ -5,8 +5,8 @@ import {FormContainer} from "./FormContainer";
 import validationSchema from "../../helpers/validateForm";
 import Login from "../Login/Login";
 import Registration from "../Registration/Registration";
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import Alert from "../../../../components/Error/AlertError";
+import {useEffect} from "react";
 
 //ToDo из пропсов
 const getPageState = (pageState) => {
@@ -17,9 +17,15 @@ const getPageState = (pageState) => {
 };
 
 const AuthPage = (props) => {
-  const [currPageState, setCurrPageState] = React.useState(props.pageState);
-  const authCtx = useContext(AuthContext);
-  console.log(authCtx.isLoggedIn, "isLoggedIn");
+  const [currPageState] = React.useState(props.pageState);
+  const [errorText, setError] = React.useState(null);
+  const {onLogin, error} = useContext(AuthContext);
+
+  useEffect(() => {
+    if (error) {
+      setError(error);
+    }
+  }, [error]);
 
   const initialFormValues = {
     userName: "",
@@ -27,7 +33,7 @@ const AuthPage = (props) => {
   };
 
   const submitHandler = (values) => {
-    authCtx.onLogin(values.userName, values.password);
+    onLogin(values.userName, values.password);
   };
 
   return (
@@ -36,15 +42,6 @@ const AuthPage = (props) => {
         initialValues={initialFormValues}
         validationSchema={validationSchema}
         onSubmit={(values) => submitHandler(values)}
-        // todo - перенести асинковую логику в редакс
-        // axios
-        //   .post("/api/v1/login", {
-        //     username: values.userName,
-        //     password: values.password,
-        //   })
-        //   .then((response) => {
-        //     console.log(response.data); // => { token: ..., username: 'admin' }
-        //   });
       >
         <Form>
           {getPageState(currPageState)}
@@ -56,6 +53,7 @@ const AuthPage = (props) => {
           </button>
         </Form>
       </Formik>
+      {errorText && <Alert error={errorText} />}
     </FormContainer>
   );
 };

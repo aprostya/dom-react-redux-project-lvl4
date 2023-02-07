@@ -1,3 +1,12 @@
+import * as React from 'react'
+
+/**
+ *
+ * @param {String} key The key to set in localStorage for this value
+ * @param {Object} defaultValue The value to use if it is not already in localStorage
+ * @param {{serialize: Function, deserialize: Function}} options The serialize and deserialize functions to use (defaults to JSON.stringify and JSON.parse respectively)
+ */
+
 function useLocalStorageState(
     key,
     defaultValue = '',
@@ -11,8 +20,9 @@ function useLocalStorageState(
         return typeof defaultValue === 'function' ? defaultValue() : defaultValue
     })
 
+    const prevKeyRef = React.useRef(key)
+
     React.useEffect(() => {
-        const prevKeyRef = React.useRef(key)
         const prevKey = prevKeyRef.current
         if (prevKey !== key) {
             window.localStorage.removeItem(prevKey)
