@@ -25,7 +25,6 @@ export const AuthContextProvider = props => {
 
     const logoutHandler = () => {
         setAuthKey(null);
-        setIsLoggedIn(false);
         navigate(ROUTER_ENUMS.LOGIN)
     };
 
