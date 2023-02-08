@@ -1,4 +1,4 @@
-const ErrorPage = () => {
+const Error = () => {
   return (
     <div>
       <h1>Oops! You seem to be lost.</h1>
@@ -6,4 +6,4 @@ const ErrorPage = () => {
   );
 };
 
-export default ErrorPage;
+export default Error;

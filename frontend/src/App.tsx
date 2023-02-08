@@ -1,8 +1,8 @@
 import React, {useContext} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
 import {ROUTER_ENUMS} from "./utils/enums";
-import AuthPage from "./modules/AuthForm/components/Form/Form";
-import ErrorPage from "./components/Error/404";
+import {AuthPage} from "./pages/AuthPage";
+import {ErrorPage} from "./pages/ErrorPage";
 import AuthContext from "./context/auth-context";
 import Chat from "./modules/Chat/Chat";
 

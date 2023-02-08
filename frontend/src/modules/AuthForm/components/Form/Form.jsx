@@ -16,7 +16,7 @@ const getPageState = (pageState) => {
   return <Registration />;
 };
 
-const AuthPage = (props) => {
+const AuthForm = (props) => {
   const [currPageState] = React.useState(props.pageState);
   const [errorText, setError] = React.useState(null);
   const {onLogin, error} = useContext(AuthContext);
@@ -60,4 +60,4 @@ const AuthPage = (props) => {
 
 //ToDo структура в pages, modules изолированные
 
-export default AuthPage;
+export default AuthForm;
