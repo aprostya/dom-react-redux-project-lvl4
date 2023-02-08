@@ -1,20 +1,8 @@
-import {useContext} from "react";
-import {Route, Routes, Navigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {ROUTER_ENUMS} from "./utils/enums";
 import {AuthPage} from "./pages/AuthPage";
 import {ErrorPage} from "./pages/ErrorPage";
-import AuthContext from "./context/auth-context";
-import Chat from "./modules/Chat/Chat";
-
-const HomePage = () => {
-  const {authKey} = useContext(AuthContext);
-
-  return authKey ? (
-    <Chat />
-  ) : (
-    <Navigate to={ROUTER_ENUMS.LOGIN} replace={true} />
-  );
-};
+import {HomePage} from "./pages/HomePage";
 
 const App = () => {
   return (
