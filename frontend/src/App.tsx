@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
 import {ROUTER_ENUMS} from "./utils/enums";
 import {AuthPage} from "./pages/AuthPage";
