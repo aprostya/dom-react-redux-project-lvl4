@@ -6,6 +6,7 @@ import validationSchema from "../../helpers/validateForm";
 import Login from "../Login/Login";
 import Registration from "../Registration/Registration";
 import Alert from "../../../../components/Error/AlertError";
+import { Button } from "../../../../components/ui/Button";
 import {useEffect} from "react";
 
 //ToDo из пропсов
@@ -16,7 +17,7 @@ const getPageState = (pageState) => {
   return <Registration />;
 };
 
-const AuthPage = (props) => {
+export const AuthForm = (props) => {
   const [currPageState] = React.useState(props.pageState);
   const [errorText, setError] = React.useState(null);
   const {onLogin, error} = useContext(AuthContext);
@@ -45,12 +46,7 @@ const AuthPage = (props) => {
       >
         <Form>
           {getPageState(currPageState)}
-          <button
-            type="submit"
-            className="w-full p-3 mt-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded shadow"
-          >
-            Login
-          </button>
+         <Button text="Login"/>
         </Form>
       </Formik>
       {errorText && <Alert error={errorText} />}
@@ -60,4 +56,3 @@ const AuthPage = (props) => {
 
 //ToDo структура в pages, modules изолированные
 
-export default AuthPage;

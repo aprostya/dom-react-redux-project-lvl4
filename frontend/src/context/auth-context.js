@@ -14,14 +14,15 @@ export const AuthContextProvider = props => {
     const { isLoading, error, sendRequest, data } = useHttp();
     const [authKey, setAuthKey] = useLocalStorageState('token', data);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (data?.token || authKey) {
-            setAuthKey(data?.token ?? authKey);
+        if (data?.token) {
+            console.log('trigger');
+            setAuthKey(data?.token);
             navigate(ROUTER_ENUMS.HOME)
         }
-    }, [data, authKey, error, navigate, setAuthKey]);
+    }, [data, error, setAuthKey]);
 
     const logoutHandler = () => {
         setAuthKey(null);

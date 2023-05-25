@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
 import {ROUTER_ENUMS} from "./utils/enums";
-import AuthPage from "./modules/AuthForm/components/Form/Form";
+import { AuthPage } from "./pages/Auth/Auth";
 import ErrorPage from "./components/Error/404";
 import AuthContext from "./context/auth-context";
-import Chat from "./modules/Chat/Chat";
+import Chat from "./pages/Chat/Chat";
 
 const HomePage = () => {
   const {authKey} = useContext(AuthContext);
