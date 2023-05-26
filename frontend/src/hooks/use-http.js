@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react';
+import { useLocalStorageState } from '../hooks/use-local-storage';
 
 const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const [data, setData] = useState(null);
+    const [authKey, setAuthKey] = useLocalStorageState('token', null);
 
     const sendRequest = useCallback(async (requestConfig) => {
         setIsLoading(true);
@@ -24,6 +26,8 @@ const useHttp = () => {
 
             const data = await response.json();
             setData(data);
+            setAuthKey(data?.token)
+            
         } catch (err) {
             setError(err);
         }
@@ -34,6 +38,8 @@ const useHttp = () => {
         isLoading,
         error,
         data,
+        authKey,
+        setAuthKey,
         sendRequest,
     };
 };

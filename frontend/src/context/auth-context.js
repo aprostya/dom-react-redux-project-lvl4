@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import useHttp from '../hooks/use-http';
-import { useLocalStorageState } from '../hooks/use-local-storage';
 import { ROUTER_ENUMS } from '../utils/enums';
 
 const AuthContext = React.createContext(({
@@ -11,15 +10,12 @@ const AuthContext = React.createContext(({
 }))
 
 export const AuthContextProvider = props => {
-    const { isLoading, error, sendRequest, data } = useHttp();
-    const [authKey, setAuthKey] = useLocalStorageState('token', data);
+    const { isLoading, error, sendRequest, data, authKey, setAuthKey } = useHttp();
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (data?.token) {
-            console.log('trigger');
-            setAuthKey(data?.token);
+        if (authKey) {
             navigate(ROUTER_ENUMS.HOME)
         }
     }, [data, error, setAuthKey]);
