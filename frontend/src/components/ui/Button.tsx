@@ -1,12 +1,16 @@
 import React from "react";
 
-export const Button = (props) => {
+type Button = {
+    text: string;
+  };
+
+export const Button = ({text}: Button) => {
     return (
         <button
             type="submit"
             className="w-full p-3 mt-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded shadow"
         >
-            {props.text}
+            {text}
         </button>
     );
 };

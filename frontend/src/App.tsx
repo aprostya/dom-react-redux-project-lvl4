@@ -1,18 +1,18 @@
 import React, {useContext} from "react";
 import {Route, Routes, Navigate} from "react-router-dom";
-import {RouterNames} from "./utils/enums";
+import {PAGE_ROUTES} from "./shared/utils/enums";
 import { AuthPage } from "./pages/Auth/Auth";
 import ErrorPage from "./components/Error/404";
 import AuthContext from "./context/auth-context";
-import Chat from "./pages/Chat/Chat";
+import ChatPage from "./pages/Chat/Chat";
 
 const HomePage = () => {
     const {authKey} = useContext(AuthContext);
 
     return authKey ? (
-        <Chat />
+        <ChatPage />
     ) : (
-        <Navigate to={RouterNames.LOGIN} replace={true} />
+        <Navigate to={PAGE_ROUTES.LOGIN} replace={true} />
     );
 };
 
@@ -21,15 +21,15 @@ const App = () => {
         <>
             <Routes>
                 <Route
-                    path={RouterNames.REGISTER}
+                    path={PAGE_ROUTES.REGISTER}
                     element={<AuthPage pageState="register" />}
                 />
                 <Route
-                    path={RouterNames.LOGIN}
+                    path={PAGE_ROUTES.LOGIN}
                     element={<AuthPage pageState="login" />}
                 />
-                <Route path={RouterNames.HOME} element={<HomePage />} />
-                <Route path={RouterNames.NOT_FOUND} element={<ErrorPage />} />
+                <Route path={PAGE_ROUTES.HOME} element={<HomePage />} />
+                <Route path={PAGE_ROUTES.NOT_FOUND} element={<ErrorPage />} />
             </Routes>
         </>
     );

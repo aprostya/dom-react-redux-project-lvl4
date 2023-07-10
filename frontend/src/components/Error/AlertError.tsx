@@ -4,7 +4,7 @@ interface IProps {
     error: any
 }
 
-//ToDo
+//ToDo IProps
 const Alert = (props: IProps) => {
     const {
         error: { message },

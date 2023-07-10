@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import useHttp from "../hooks/use-http";
-import { RouterNames } from "../utils/enums";
+import useHttp from "../shared/hooks/use-http";
+import { PAGE_ROUTES } from "../shared/utils/enums";
 
+
+//todo fix IContext
 interface IContext {
     onLogout: () => any;
     onLogin: (userName: string, password: string) => any;
@@ -14,7 +16,7 @@ const AuthContext = React.createContext<IContext>(({
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onLogout: () => { },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
-    onLogin: (userName, password) => { },
+    onLogin: (userName: string, password: string) => { },
     authKey: null
 }));
 
@@ -25,16 +27,16 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({chil
 
     useEffect(() => {
         if (authKey) {
-            navigate(RouterNames.HOME);
+            navigate(PAGE_ROUTES.HOME);
         }
     }, [data, error, setAuthKey]);
 
     const logoutHandler = () => {
         setAuthKey(null);
-        navigate(RouterNames.LOGIN);
+        navigate(PAGE_ROUTES.LOGIN);
     };
 
-    const loginHandler = (username, password) => {
+    const loginHandler = (username: string, password: string) => {
         //Todo url в константу
         sendRequest(
             { url: "/api/v1/login", body: { username, password } },

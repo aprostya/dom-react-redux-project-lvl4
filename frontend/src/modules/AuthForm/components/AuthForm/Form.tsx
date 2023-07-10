@@ -8,7 +8,7 @@ import Registration from "../Registration/Registration";
 import Alert from "../../../../components/Error/AlertError";
 import { Button } from "../../../../components/ui/Button";
 import { useEffect } from "react";
-import { PageStates } from "../../../../utils/enums";
+import { PAGE_STATES } from "../../../../shared/utils/enums";
 
 const initialFormValues = {
     userName: "",
@@ -16,7 +16,7 @@ const initialFormValues = {
 };
 
 //ToDo из пропсов
-const getPageState = (pageState: PageStates) => {
+const getPageState = (pageState: PAGE_STATES) => {
     if (pageState === "login") {    
         return <Login />;
     }

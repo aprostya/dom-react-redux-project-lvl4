@@ -10,6 +10,7 @@ interface IData {
     token: string
 }
 
+//todo fix body
 interface IRequest extends RequestInit {
     url: string;
     body: any
