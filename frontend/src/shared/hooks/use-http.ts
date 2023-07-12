@@ -10,7 +10,7 @@ interface IData {
     token: string
 }
 
-//todo fix body
+// TODO fix body
 interface IRequest extends RequestInit {
     url: string;
     body: any
@@ -22,10 +22,12 @@ const useHttp = () => {
     const [error, setError] = useState<IError>(null);
     const [data, setData] = useState<IData>(null);
     const [authKey, setAuthKey] = useLocalStorageState("token", null);
+    const [username, setUsername] = useLocalStorageState("username", null);
 
     const sendRequest = useCallback(async (requestConfig: IRequest) => {
         setIsLoading(true);
         setError(null);
+        setUsername(requestConfig.body.username);
         try {
             const response = await fetch(requestConfig.url, {
                 method: requestConfig.method ?? "POST",
@@ -57,6 +59,7 @@ const useHttp = () => {
         authKey,
         setAuthKey,
         sendRequest,
+        username
     };
 };
 

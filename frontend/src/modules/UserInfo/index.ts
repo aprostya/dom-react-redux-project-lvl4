@@ -1,0 +1,1 @@
+export {UserInfo} from "./components/User/UserInfo";

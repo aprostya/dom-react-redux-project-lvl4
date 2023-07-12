@@ -14,5 +14,9 @@ export enum PAGE_STATES {
 export enum API_ROUTES {
     LOGIN = "/api/v1/login",
     DATA = "/api/v1/data"
+}
 
+export enum BUTTON_TYPES {
+    DEFAULT = "DEFAULT",
+    SEND = "SEND",
 }

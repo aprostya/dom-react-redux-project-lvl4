@@ -1,34 +1,34 @@
-import React, { useEffect, useContext,useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { ChannelItem } from "./ChannelItem";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchChannels } from "../../../../shared/slices/channelsSlice";
+import { fetchChatData } from "../../slices/channelsSlice";
 import { AppDispatch } from "../../../../shared/slices/type";
 import AuthContext from "../../../../context/auth-context";
-import { RootState } from "../../../../shared/slices";
-import { IChannel } from "../../../../types/channels";
+import { RootState } from "../../../../store/store";
+import { IChannel } from "../../types/types";
+import { changeCurrentChannel } from "../../slices/channelsSlice";
 
 export const ChannelsList = () => {
     const dispatch = useDispatch<AppDispatch>();
-    const channels = useSelector((state: RootState) => state.channels.list);
-    const [currItem, setItemClicked] = useState<any>(null);
+    const authCtx = useContext(AuthContext);   
+    const {currChannel, list:channels} = useSelector((state: RootState) => state.channels);
     const channelClass = "channels-item flex flex-row mt-2 cursor-pointer pl-4 pr-4 pt-1 pb-1";
     const selectedChannelClass = `${channelClass} bg-teal-600 font-semibold text-white`;
-    const authCtx = useContext(AuthContext);   
 
     useEffect(() => { 
-        dispatch(fetchChannels(authCtx.authKey));
+        dispatch(fetchChatData(authCtx.authKey));
     }, []);
 
     useEffect(() => { 
-        setItemClicked(channels[0]);
+        dispatch(changeCurrentChannel(channels[0]));
     }, [channels]);
 
-    const handleItemClicked = (item: IChannel) => {
-        setItemClicked(item);
+    const handleItemClicked = (channel: IChannel) => {
+        dispatch(changeCurrentChannel(channel));
     };
 
     const getClassName = (item: IChannel): string => {
-        if(currItem?.id === item.id) {
+        if(currChannel?.id === item.id) {
             return selectedChannelClass;
         }
         return channelClass;

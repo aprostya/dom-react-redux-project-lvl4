@@ -9,7 +9,8 @@ interface IContext {
     onLogout: () => any;
     onLogin: (userName: string, password: string) => any;
     authKey?: string | null;
-    error?: any
+    error?: any;
+    username: string | null;
 }
 
 const AuthContext = React.createContext<IContext>(({
@@ -17,11 +18,12 @@ const AuthContext = React.createContext<IContext>(({
     onLogout: () => { },
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     onLogin: (userName: string, password: string) => { },
-    authKey: null
+    authKey: null,
+    username: null
 }));
 
 export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
-    const { isLoading, error, sendRequest, data, authKey, setAuthKey } = useHttp();
+    const { isLoading, error, sendRequest, data, authKey, setAuthKey, username } = useHttp();
 
     const navigate = useNavigate();
 
@@ -48,7 +50,8 @@ export const AuthContextProvider: React.FC<{children: React.ReactNode}> = ({chil
         error,
         authKey,
         onLogout: logoutHandler,
-        onLogin: loginHandler
+        onLogin: loginHandler,
+        username
     };
 
     return (
