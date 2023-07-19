@@ -4,6 +4,7 @@ import { BUTTON_TYPES } from "../../shared/utils/enums";
 type Button = {
     text: string;
     type?: BUTTON_TYPES;
+    onClick?: () => void;
   };
 
 
@@ -16,11 +17,13 @@ const getBtnClassName = (type = BUTTON_TYPES.DEFAULT) => {
     }
 };
 
-export const Button = ({text,type}: Button) => {
+export const Button = ({text,type, onClick}: Button) => {
     return (
         <button
             type="submit"
             className={getBtnClassName(type)}
+            onClick={onClick}
+
         >
             {type === BUTTON_TYPES.SEND ?
                 <div className="icon-container -rotate-90">
